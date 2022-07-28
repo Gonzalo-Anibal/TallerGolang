@@ -26,6 +26,17 @@ func (r *productRepository) GetAll() ([]domain.Product, error) {
 	return products, nil
 }
 
+func (r *productRepository) NewProduct(product model.Product) ([]domain.Product, error) {
+	productsDB, err := resultAllProductsFromDB()
+	if err != nil {
+		return nil, errors.New("Error en obtener Productos Mock")
+	}
+	productsDB = append(productsDB, product)
+	products := mapper.ModelsToDomainsProduct(productsDB)
+
+	return products, nil
+}
+
 var productsMock = []model.Product{
 	{
 		UUID:        1,
